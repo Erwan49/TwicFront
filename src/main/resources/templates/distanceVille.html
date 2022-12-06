@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Distance villes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://kit.fontawesome.com/5d604ee4ae.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
+    <script type='text/javascript' src='https://s3.amazonaws.com/dynatable-docs-assets/js/jquery.dynatable.js'></script>
+    <link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/jquery.dynatable.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+</head>
+<body>
+
+<div class="mx-5 my-5">
+    <div class="d-flex justify-content-center">
+        <form method="post" th:action="@{/test}" th:object="${form}">
+            <div class="form-row">
+                <div class="form-group" style="margin-bottom: 10%; margin-top: 10%">
+                    <label for="select1" style="margin-bottom: 2%">Choisir une première ville</label>
+                    <select class="form-control" id="select1" th:field="*{nomVille1}">
+                        <option th:each="ville : ${villes}" th:value="${ville.nomCommune}" th:text="${ville.nomCommune}"></option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 10%; margin-top: 10%">
+                    <label for="select2" style="margin-bottom: 2%">Choisir une deuxième ville</label>
+                    <select class="form-control" id="select2" th:field="*{nomVille2}">
+                        <option th:each="ville : ${villes}" th:value="${ville.nomCommune}" th:text="${ville.nomCommune}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-dark">Calculer</button>
+            </div>
+        </form>
+    </div>
+    <div class="d-flex justify-content-center" style="margin-top: 5%" th:if="${distance != ''}">
+        <p th:text="${'La distance entre les deux villes est de     ' + distance + ' km'}"></p>
+    </div>
+    <div class="d-flex justify-content-center" style="margin-top: 5%">
+        <a th:href="@{/}" class="btn btn-dark">Retour</a>
+    </div>
+</div>
+
+</body>
+</html>

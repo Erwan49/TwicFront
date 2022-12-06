@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Villes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://kit.fontawesome.com/5d604ee4ae.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
+    <script type='text/javascript' src='https://s3.amazonaws.com/dynatable-docs-assets/js/jquery.dynatable.js'></script>
+    <link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/jquery.dynatable.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+</head>
+<body>
+<div style="display: flex; justify-content: center; align-items: center">
+    <a th:href="@{/distanceVilles}" type="button" class="btn btn-outline-dark" style="margin-top: 3%">Calculer la distance entre
+        deux
+        villes</a>
+</div>
+<div class="mx-5 my-5">
+    <table id="table" class="table">
+        <thead>
+        <tr class="table-dark">
+            <th scope="col">Code INSEE</th>
+            <th scope="col">Nom de commune</th>
+            <th scope="col">CP</th>
+            <th scope="col">Libelle d'acheminement</th>
+            <th scope="col">Ligne 5</th>
+            <th scope="col">Latitude</th>
+            <th scope="col">Longitude</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ville : ${villes}">
+            <td th:text="${ville.codeCommune}"></td>
+            <td th:text="${ville.nomCommune}"></td>
+            <td th:text="${ville.codePostal}"></td>
+            <td th:text="${ville.libelleAcheminement}"></td>
+            <td th:text="${ville.ligne5}"></td>
+            <td th:text="${ville.latitude}"></td>
+            <td th:text="${ville.longitude}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#table').dynatable({
+            features: {
+                paginate: true,
+                sort: true,
+                pushState: true,
+                search: true,
+                recordCount: true,
+                perPageSelect: true
+            },
+            dataset: {
+                perPageDefault: 50,
+                perPageOptions: [10, 50, 100]
+            },
+            inputs: {
+                paginationNext: ">",
+                paginationPrev: "<",
+                pageText: "Page",
+                searchText: "Rechercher : ",
+                perPageText: "Pagination : ",
+            },
+        });
+        var styleSearch = "border: 2px solid goldenrod; border-radius: 3px;";
+        var styleActive = "background: goldenrod;";
+        document.getElementById('dynatable-query-search-tableCommune').setAttribute('style', styleSearch);
+        document.getElementsByClassName('dynatable-active-page').setAttribute('style', styleActive);
+    });
+</script>
+
+</body>
+</html>
